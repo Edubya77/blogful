@@ -1,0 +1,28 @@
+{% macro render_entry(entry) %}
+<div class="row">
+    <div class="col-md-2 text-right metadata">
+        <ul class="list-unstyled">
+            <li>
+                {{ entry.datetime | dateformat("%d/%m/%y") }}
+            </li>
+        </ul>
+        <a href="/entry/{{entry.id}}/edit" title="Click to edit entry">Edit Entry</a>
+        <a href="/entry/{{entry.id}}/delete" title="Click to delete entry">Delete Entry</a>
+    </div>
+    <div class="col-md-10">
+        <h1>
+            <a href="{{url_for("view_entry", id=entry.id)}}">{{ entry.title }}</a>
+        </h1>
+        {{ entry.content | markdown }}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro view_entry(entry) %}
+<div class="col-md-10">
+    <h1>
+        <a href="{{url_for("view_entry", id=entry.id)}}">{(entry.title)}</a>
+    </h1>
+    {(entry.content|safe)}
+</div>
+{% endmacro %}
